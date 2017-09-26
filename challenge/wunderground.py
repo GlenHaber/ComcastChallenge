@@ -1,6 +1,5 @@
 import requests
 
-
 with open('api_key.cfg') as f:
     _API_KEY = f.read().strip()
 
@@ -15,6 +14,9 @@ def print_weather(city, state):
 
     response = requests.get(page)
     weather = response.json()
+    if 'error' in weather['response']:
+        print(weather['response']['error']['description'])
+        return
 
     temperature = weather['current_observation']['temp_f']
     conditions = weather['current_observation']['weather']
