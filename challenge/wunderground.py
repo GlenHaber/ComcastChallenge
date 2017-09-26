@@ -1,14 +1,17 @@
 import requests
 
 
+with open('api_key.cfg') as f:
+    _API_KEY = f.read().strip()
+
+
 def print_weather(city, state):
     city = city.title().replace(' ', '_')
     state = state.upper()
     site = 'http://api.wunderground.com/api/'
     endpoint = '/conditions/q/{}/{}.json'.format(state, city)
-    key = '4b787f11700ab380'
 
-    page = site + key + endpoint
+    page = site + _API_KEY + endpoint
 
     response = requests.get(page)
     weather = response.json()
